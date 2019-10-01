@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="root">
+
+    </div>
+    <script type="text/babel">
+        class GuGuDan extends React.Component {
+            state = {
+                first: Math.ceil(Math.random() * 9),
+                second: Math.ceil(Math.random() * 9),
+                value: "",
+                result: "",
+            };
+
+            onChange = (e) => {
+                this.setState({
+                    value: e.target.value
+                });
+            };
+
+            onClick = () => {
+                const { first, second, value } = this.state;
+                if (parseInt(value) === first * second) {
+                    this.setState((prevState) =>{
+                        const { first, second } = prevState;
+                        return {
+                            first: Math.ceil(Math.random() * 9),
+                            second: Math.ceil(Math.random() * 9),
+                            value: "",
+                            result: `${first} * ${second} = ${first * second} 정답`
+                        } 
+                    });
+                } else {
+                    this.setState({
+                        value: "",
+                        result: "땡"
+                    });
+                }
+                this.input.focus();
+            }
+
+            input;
+
+            handleRefInput = (c) => { this.input = c; }
+
+            render() {
+                const { first, second, value, result } = this.state;
+                const { onChange, onClick, handleRefInput } = this;
+                return (
+                    <>
+                        <div>{first} 곱하기 {second}는?</div>
+                        <input ref={handleRefInput} type="number" value={value} onChange={onChange} />
+                        <button type="button" onClick={onClick}>확인</button>
+                        <div>{result}</div>
+                    </>
+                );
+            }
+        }
+    </script>
+    <script type="text/babel">
+        ReactDOM.render(<GuGuDan />, document.getElementById("root"));
+    </script>
+</body>
+</html>
