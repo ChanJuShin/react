@@ -24,7 +24,7 @@ module.exports = {
                     }], 
                     "@babel/preset-react"
                 ],
-                plugins: []
+                plugins: ["react-hot-loader/babel"]
             }
         }]
     },
@@ -33,6 +33,7 @@ module.exports = {
     ],
     output: {
         path: path.join(__dirname, "dist"),
-        filename: "app.js"
+        filename: "app.js",
+        publicPath: "/dist"
     }
 }
